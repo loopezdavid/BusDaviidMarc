@@ -20,13 +20,11 @@ def devolucionBilletes(plazas_libres, plazas_vendidas, devolucion):
 def bus():
     ending = False
     PLAZAS_TOTALES = int(input("Ingrese el número de asientos\n"))
-    cliente1 = Cliente("Juan", "Perez")
-    cliente2 = Cliente("Pepe", "Garcia")
-    cliente3 = Cliente("Lucas", "Santiago")
-    bus1 = Bus(1, 50,50)
-    bus2 = Bus(2, 30,30)
-    bus3 = Bus(3, 20,20)
-    plazas_vendidas, plazas_libres = 0, PLAZAS_TOTALES
+    buses = [
+        Bus(1, 50,50),
+        Bus(2, 30,30),
+        Bus(3, 20,20)
+    ]
 
     print(f"1.- Venta de billetes.\n2.- Devolución de billetes.\n3.- Estado de la venta.\n0.- Salir.")
     while ending == False:
