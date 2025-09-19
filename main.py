@@ -6,13 +6,9 @@ def ventaBilletes(busSelected: Bus):
         busSelected.setPlazasLibre(busSelected.getPlazasLibre() - 1)
         return busSelected
     
-def devolucionBilletes(plazas_libres, plazas_vendidas, devolucion):
-    if devolucion <= plazas_vendidas:
-        plazas_libres += devolucion
-        plazas_vendidas -= devolucion
-        return plazas_libres, plazas_vendidas, "Se devolvieron " + str(devolucion) + " billetes"
-    else:
-        return plazas_libres,plazas_vendidas, "Error"
+def devolucionBilletes(billete: Billete):
+    billete.bus.setPlazasLibre(billete.bus.getPlazasLibre() + 1)
+    print(f"Billete de: {billete.cliente.getNombre()} {billete.cliente.getApellido()} devuelto")
 
 def bus():
     ending = False
@@ -22,6 +18,7 @@ def bus():
         Bus(2, 30,30),
         Bus(3, 20,20)
     ]
+    clientes:Cliente = []
     billetes = []
 
     while ending == False:
@@ -35,13 +32,21 @@ def bus():
             for bus in buses:
                 print(f"Bus : {bus.getIdBus()} . Plazas libres: {bus.getPlazasLibre()}")
             busSelected=int(input())
-            billetes.append(Billete(Cliente(nombre, apellido), ventaBilletes(buses[busSelected-1])))
+            clientes.append(Cliente(nombre, apellido))
+            billetes.append(Billete(Cliente(nombre.strip(), apellido.strip()), ventaBilletes(buses[busSelected-1])))
             for billete in billetes:
                 print(billete.fullBillete())
-        # elif select == 2:1
-        #     devolucion = int(input())
-        #     plazas_libres, plazas_vendidas, mensaje = devolucionBilletes( plazas_libres, plazas_vendidas, devolucion)
-        #     print(mensaje)
+        elif select == 2:
+            for i in clientes: 
+                print(f"Quien eres? {i.getNombre()} {i.getApellido()}")
+            nombre = input().strip()
+            for billete in billetes:
+                if billete.cliente.getNombre().lower() == nombre.lower():
+                    devolucionBilletes(billete)       
+                    billetes.remove(billete)
+            for billete in billetes: 
+                print(billete.fullBillete())
+                     # plazas_libres, plazas_vendidas, mensaje = devolucionBilletes( plazas_libres, plazas_vendidas, devolucion)
         # elif select == 3:
         #     print(f"Total: {}\nLibre: {plazas_libres}\nVendido: {plazas_vendidas}")
         else:
