@@ -33,15 +33,15 @@ def bus():
                 print(f"Elige Bus entre: {bus.getIdBus()}")
             busSelected=int(input())
             clientes.append(Cliente(nombre, apellido))
-            billetes.append(Billete(Cliente(nombre, apellido), ventaBilletes(buses[busSelected-1])))
+            billetes.append(Billete(Cliente(nombre.strip(), apellido.strip()), ventaBilletes(buses[busSelected-1])))
             for billete in billetes:
                 print(billete.fullBillete())
         elif select == 2:
             for i in clientes: 
                 print(f"Quien eres? {i.getNombre()} {i.getApellido()}")
-            nombre = input()
+            nombre = input().strip()
             for billete in billetes:
-                if billete.cliente.getNombre() == nombre:
+                if billete.cliente.getNombre().lower() == nombre.lower():
                     devolucionBilletes(billete)       
                     billetes.remove(billete)
             for billete in billetes: 
