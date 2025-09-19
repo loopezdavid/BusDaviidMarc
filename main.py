@@ -24,8 +24,8 @@ def bus():
     ]
     billetes = []
 
-    print(f"1.- Venta de billetes.\n2.- Devolución de billetes.\n3.- Estado de la venta.\n0.- Salir.")
     while ending == False:
+        print(f"1.- Venta de billetes.\n2.- Devolución de billetes.\n3.- Estado de la venta.\n0.- Salir.")
         select = int(input())
         if select == 0: 
             ending = True
@@ -33,7 +33,7 @@ def bus():
             nombre = input("Ingrese su nombre\n")
             apellido = input("Ingrese su apellido\n") 
             for bus in buses:
-                print(f"Elige Bus entre: {bus.getIdBus()}")
+                print(f"Bus : {bus.getIdBus()} . Plazas libres: {bus.getPlazasLibre()}")
             busSelected=int(input())
             billetes.append(Billete(Cliente(nombre, apellido), ventaBilletes(buses[busSelected-1])))
             for billete in billetes:
