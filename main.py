@@ -42,11 +42,18 @@ def bus():
         elif select == 2:
             for i in clientes: 
                 print(f"Quien eres? {i.getNombre()} {i.getApellido()}")
-            nombre = input().strip()
+            nombre = input("Nombre: ").strip()
+            apellido = input("Apellido: ").strip()
+            encontrado = False
             for billete in billetes:
-                if billete.cliente.getNombre().lower() == nombre.lower():
+                if (billete.cliente.getNombre().lower() == nombre.lower() and
+                    billete.cliente.getApellido().lower() == apellido.lower()):
                     devolucionBilletes(billete)       
                     billetes.remove(billete)
+                    encontrado = True
+                    break
+            if not encontrado:
+                print("No se encontró un billete con ese nombre y apellido.")
             for billete in billetes: 
                 print(billete.fullBillete())
                      # plazas_libres, plazas_vendidas, mensaje = devolucionBilletes( plazas_libres, plazas_vendidas, devolucion)
