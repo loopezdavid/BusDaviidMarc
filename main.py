@@ -32,6 +32,9 @@ def bus():
             for bus in buses:
                 print(f"Bus : {bus.getIdBus()} . Plazas libres: {bus.getPlazasLibre()}")
             busSelected=int(input())
+            if busSelected < 1 or busSelected > len(buses):
+                print("Bus no existente")
+                continue
             clientes.append(Cliente(nombre, apellido))
             billetes.append(Billete(Cliente(nombre.strip(), apellido.strip()), ventaBilletes(buses[busSelected-1])))
             for billete in billetes:
@@ -47,8 +50,10 @@ def bus():
             for billete in billetes: 
                 print(billete.fullBillete())
                      # plazas_libres, plazas_vendidas, mensaje = devolucionBilletes( plazas_libres, plazas_vendidas, devolucion)
-        # elif select == 3:
-        #     print(f"Total: {}\nLibre: {plazas_libres}\nVendido: {plazas_vendidas}")
+        elif select == 3:
+            for billete in billetes: 
+                print(billete.fullBillete())
+                     # plazas_libres, plazas_vendidas, mensaje = devolucionBilletes( plazas_libres, plazas_vendidas, devolucion)
         else:
             print("Valor incorrecto")  
 bus()
