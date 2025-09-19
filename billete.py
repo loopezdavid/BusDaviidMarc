@@ -7,4 +7,4 @@ class Billete:
        self.bus = bus
 
     def fullBillete (self):
-        return f"Billete de {self.cliente.getNombre()} {self.cliente.getApellido()} en el bus {self.bus.getIdBus()}"
+        return f"Billete del bus {self.bus.getIdBus()} para {self.cliente.getNombre()} {self.cliente.getApellido()}"
