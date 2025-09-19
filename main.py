@@ -34,6 +34,9 @@ def bus():
         if select == 0: 
             ending = True
         elif select == 1:
+            nombre = input("Ingrese su nombre\n")
+            apellido = input("Ingrese su apellido\n") 
+            busSelect = input("Elige Bus\n") 
             plazas_solicitadas = int(input())
             plazas_libres, plazas_vendidas, mensaje = ventaBilletes(plazas_libres, plazas_vendidas, plazas_solicitadas)
             print(mensaje)
