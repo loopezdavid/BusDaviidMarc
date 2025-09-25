@@ -15,6 +15,10 @@ def validationId(idBus, buses):
         if i.getIdBus() == idBus:
             return False
     return True
+def nombreValido(nombre):
+    if nombre.strip() == "" or len(nombre) < 3 or len(nombre) > 30 :
+        return False
+    return True
 
 def bus():
     ending = False
@@ -30,12 +34,22 @@ def bus():
 
     while ending == False:
         print(f"1.- Venta de billetes.\n2.- Devolución de billetes.\n3.- Estado de la venta.\n4.- Añadir Bus\n5.- Ver buses\n0.- Salir.")
-        select = int(input())
+        select = input()
+        if not select.isdigit():
+            print("Ha de ser un numero ")
+            continue
+        select = int(select)
         if select == 0: 
             ending = True
         elif select == 1:
             nombre = input("Ingrese su nombre\n")
+            if not nombreValido(nombre):
+                print("Nombre no válido")
+                continue
             apellido = input("Ingrese su apellido\n") 
+            if not nombreValido(apellido):
+                print("Apellido no válido")
+                continue
             for bus in buses:
                 print(f"Bus : {bus.getIdBus()} . Plazas libres: {bus.getPlazasLibre()}")
             busSelected=int(input())
@@ -47,14 +61,19 @@ def bus():
             for billete in billetes:
                 print(billete.fullBillete())
         elif select == 2:
+            print("Quien eres?")
             for i in clientes: 
-                print(f"Quien eres? {i.getNombre()}")
+                print(f" {i.getNombre()} {i.getApellido()}")
             nombre = input().strip()
+            apellido = input().strip()
             for billete in billetes:
                 if (billete.cliente.getNombre().lower() == nombre.lower() and
                     billete.cliente.getApellido().lower() == apellido.lower()):
                     devolucionBilletes(billete)       
                     billetes.remove(billete)
+                    for i in clientes: 
+                        if i.getNombre().lower() == nombre.lower() and i.getApellido().lower() == apellido.lower():
+                            clientes.remove(i)
                     for billete in billetes: 
                         print(billete.fullBillete())
                 else : 
@@ -69,12 +88,18 @@ def bus():
             validation = validationId(idBus, buses)
             if validation:
                 plazas = int(input("Ingrese el número de plazas del bus\n"))
-                buses.append(Bus(idBus, plazas, plazas))
+                if plazas <1 or plazas > 100: 
+                    print("Número de plazas no válido")
+                    break
+                else :
+                    buses.append(Bus(idBus, plazas, plazas))
             else:
                 print("El ID del bus ya existe")
         elif select == 5:
             for bus in buses:
                 print(f"Bus : {bus.getIdBus()} . Plazas libres: {bus.getPlazasLibre()}")
+        
         else:
-            print("Valor incorrecto")  
+            print("Valor incorrecto")
+ 
 bus()
