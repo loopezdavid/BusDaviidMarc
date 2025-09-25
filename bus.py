@@ -16,3 +16,5 @@ class Bus:
         self.plazasLibre = plazasLibre           
     def setPlazasTotales(self, plazasTotales):
         self.plazasTotales = plazasTotales  
+    def fullBus(self):
+        return f"Bus: {self.idBus} || Plazas libres: {self.plazasLibre} || Plazas totales: {self.plazasTotales}"

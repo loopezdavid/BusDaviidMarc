@@ -51,7 +51,7 @@ def bus():
                 print("Apellido no válido")
                 continue
             for bus in buses:
-                print(f"Bus : {bus.getIdBus()} . Plazas libres: {bus.getPlazasLibre()}")
+                print(f"Bus : {bus.getIdBus()} || Plazas libres: {bus.getPlazasLibre()}")
             busSelected=int(input())
             if busSelected < 1 or busSelected > len(buses):
                 print("Bus no existente")
@@ -88,16 +88,16 @@ def bus():
             validation = validationId(idBus, buses)
             if validation:
                 plazas = int(input("Ingrese el número de plazas del bus\n"))
-                if plazas <1 or plazas > 100: 
+                if plazas < 1 or plazas > 100: 
                     print("Número de plazas no válido")
-                    break
                 else :
                     buses.append(Bus(idBus, plazas, plazas))
+                    print("Bus creado")
             else:
                 print("El ID del bus ya existe")
         elif select == 5:
             for bus in buses:
-                print(f"Bus : {bus.getIdBus()} . Plazas libres: {bus.getPlazasLibre()}")
+                print(bus.fullBus())
         
         else:
             print("Valor incorrecto")
