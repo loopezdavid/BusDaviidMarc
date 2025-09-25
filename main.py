@@ -10,6 +10,12 @@ def devolucionBilletes(billete: Billete):
     billete.bus.setPlazasLibre(billete.bus.getPlazasLibre() + 1)
     print(f"Billete de: {billete.cliente.getNombre()} {billete.cliente.getApellido()} devuelto")
 
+def validationId(idBus, buses):
+    for i in buses: 
+        if i.getIdBus() == idBus:
+            return False
+    return True
+
 def bus():
     ending = False
     busSelected = 0
@@ -21,8 +27,9 @@ def bus():
     clientes:Cliente = []
     billetes = []
 
+
     while ending == False:
-        print(f"1.- Venta de billetes.\n2.- Devolución de billetes.\n3.- Estado de la venta.\n0.- Salir.")
+        print(f"1.- Venta de billetes.\n2.- Devolución de billetes.\n3.- Estado de la venta.\n4.- Añadir Bus\n5.- Ver buses\n0.- Salir.")
         select = int(input())
         if select == 0: 
             ending = True
@@ -44,7 +51,8 @@ def bus():
                 print(f"Quien eres? {i.getNombre()}")
             nombre = input().strip()
             for billete in billetes:
-                if billete.cliente.getNombre().lower() == nombre.lower():
+                if (billete.cliente.getNombre().lower() == nombre.lower() and
+                    billete.cliente.getApellido().lower() == apellido.lower()):
                     devolucionBilletes(billete)       
                     billetes.remove(billete)
                     for billete in billetes: 
@@ -56,6 +64,17 @@ def bus():
             for billete in billetes: 
                 print(billete.fullBillete())
                      # plazas_libres, plazas_vendidas, mensaje = devolucionBilletes( plazas_libres, plazas_vendidas, devolucion)
+        elif select == 4:
+            idBus = int(input("Ingrese el ID del bus\n"))
+            validation = validationId(idBus, buses)
+            if validation:
+                plazas = int(input("Ingrese el número de plazas del bus\n"))
+                buses.append(Bus(idBus, plazas, plazas))
+            else:
+                print("El ID del bus ya existe")
+        elif select == 5:
+            for bus in buses:
+                print(f"Bus : {bus.getIdBus()} . Plazas libres: {bus.getPlazasLibre()}")
         else:
             print("Valor incorrecto")  
 bus()
